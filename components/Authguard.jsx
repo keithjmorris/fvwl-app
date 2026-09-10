@@ -3,7 +3,7 @@ import { useAuth } from '@/lib/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function AuthGuard({ children }) {
+export default function AuthGuard({ children })  {
   const { user, loading } = useAuth();
   const router = useRouter();
 
