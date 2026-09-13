@@ -23,7 +23,12 @@ export async function GET() {
     if (!snap.exists()) return Response.json({ players: [], budgetItems: [] });
     const data = snap.data();
     console.log('Players count:', data.players?.length);
-    return Response.json(data);
+    return new Response(JSON.stringify(data), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
   } catch (err) {
     console.error('Error:', err.message, err.code);
     return Response.json({ error: err.message }, { status: 500 });
