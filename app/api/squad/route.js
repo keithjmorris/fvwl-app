@@ -15,13 +15,17 @@ function getDb() {
   return getFirestore(app);
 }
 
-export async function GET() {
+xport async function GET() {
   try {
     const db = getDb();
     const snap = await getDoc(doc(db, 'fvwl', 'squad'));
+    console.log('Snap exists:', snap.exists(), 'Project:', process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
     if (!snap.exists()) return Response.json({ players: [], budgetItems: [] });
-    return Response.json(snap.data());
+    const data = snap.data();
+    console.log('Players count:', data.players?.length);
+    return Response.json(data);
   } catch (err) {
+    console.error('Error:', err.message, err.code);
     return Response.json({ error: err.message }, { status: 500 });
   }
 }
