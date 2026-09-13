@@ -15,7 +15,7 @@ function getDb() {
   return getFirestore(app);
 }
 
-xport async function GET() {
+export async function GET() {
   try {
     const db = getDb();
     const snap = await getDoc(doc(db, 'fvwl', 'squad'));
