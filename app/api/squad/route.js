@@ -28,3 +28,21 @@ export async function GET() {
       },
     });
   } catch (err) {
+    console.error('Squad API error:', err.message);
+    return Response.json({ error: err.message }, { status: 500 });
+  }
+}
+
+export async function POST(request) {
+  try {
+    const data = await request.json();
+    const db = getDb();
+    await setDoc(doc(db, 'fvwl', 'squad'), {
+      ...data,
+      updatedAt: new Date().toISOString(),
+    });
+    return Response.json({ success: true });
+  } catch (err) {
+    return Response.json({ error: err.message }, { status: 500 });
+  }
+}
